@@ -70,20 +70,25 @@ public class GPTlessons {
             System.out.println("\n➕ Add New Contact");
             System.out.print("\nWrite name: ");
             String name = scan.nextLine();
-            System.out.print("\nWrite number: ");
-            String number = scan.nextLine();
-            if (!number.matches("\\+996\\d{9}")) {
-                System.out.println("That is invalid type of number. Press \"ENTER\" to continue.");
+            if (phoneBook.containsKey(name)) {
+                System.out.println("You already have a contact with that name. Press \"ENTER\" to continue.");
                 scan.nextLine();
             } else {
-                phoneBook.put(name, number);
-                System.out.println("=================================================================================================");
-                System.out.println("You have successfully added a new contact:\nName: " + name + "\nNumber: " + number);
-                System.out.println("=================================================================================================");
-                System.out.println("If you want to return to the Main menu from adding a contact write \"back\". If you want to continue adding a contacts press \"ENTER\"");
-                String stop = scan.nextLine();
-                if (stop.equals("back"))
-                    break;
+                System.out.print("\nWrite number: ");
+                String number = scan.nextLine();
+                if (!number.matches("\\+996\\d{9}")) {
+                    System.out.println("That is invalid type of number. Press \"ENTER\" to continue.");
+                    scan.nextLine();
+                } else {
+                    phoneBook.put(name, number);
+                    System.out.println("=================================================================================================");
+                    System.out.println("You have successfully added a new contact:\nName: " + name + "\nNumber: " + number);
+                    System.out.println("=================================================================================================");
+                    System.out.println("If you want to return to the Main menu from adding a contact write \"back\". If you want to continue adding a contacts press \"ENTER\"");
+                    String stop = scan.nextLine();
+                    if (stop.equals("back"))
+                        break;
+                }
             }
         }
     }
