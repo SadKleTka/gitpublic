@@ -33,7 +33,7 @@ public class GPTlessons {
         System.out.println("Press \"ENTER\" to get in phoneBook");
             String stop15 = scan.nextLine();
             while (!stop15.equals("exit")) {
-                System.out.println("Hello, this is phoneBook. Do you want to get in the Main menu? Press \"ENTER\" if you want,if not write \"exit\"");
+                System.out.println("Hello, this is phoneBook" + "\nPress \"ENTER\" to get in the Main menu" + "\nIf you want to exit from phoneBook write \"exit\"");
                 String stop1 = scan.nextLine();
                 if (stop1.equals("exit"))
                     System.exit(0);
@@ -66,6 +66,7 @@ public class GPTlessons {
     public static void FindContact(HashMap<String, String> phoneBook) {
         Scanner scan = new Scanner(System.in);
         while(true) {
+            System.out.println("\n🔍 Contact Search");
         System.out.print("\nWrite who's number you wanna find: ");
         String find = scan.nextLine();
         if (phoneBook.containsKey(find)) {
@@ -83,6 +84,7 @@ public class GPTlessons {
     public static void AddContact(HashMap<String, String> phoneBook) {
         Scanner scan = new Scanner(System.in);
         while (true) {
+            System.out.println("\n➕ Add New Contact");
             System.out.print("\nWrite his name: ");
             String name = scan.nextLine();
             System.out.print("\nWrite his number: ");
@@ -98,11 +100,12 @@ public class GPTlessons {
 
     public static void ListOfContacts(HashMap<String, String> phoneBook) {
         Scanner scan = new Scanner(System.in);
-            System.out.println("Here is a list of contacts: " + phoneBook.entrySet());
-            System.out.println("If you want to return to the Main menu from LIST write \"back\"");
-            String stop = scan.nextLine();
-            if (stop.equals("back"))
-                return;
+        System.out.println("\n📋 Contact List:");
+        for (String name : phoneBook.keySet()) {
+            System.out.println("Name: " + name + "\t Number: " + phoneBook.get(name));
+        }
+        System.out.println("Press \"ENTER\" to return to the Main menu");
+        scan.nextLine();
     }
 }
 
