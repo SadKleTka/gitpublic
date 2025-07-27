@@ -22,8 +22,7 @@ public class GPTlessons {
             System.out.println("You guessed in " + attempts + " attempts");
         }
     } while (guess != number); */
-
-/*
+        
         Scanner scan = new Scanner(System.in);
         HashMap<String, String> phoneBook = new HashMap<>();
         phoneBook.put("Uzan", "+996504513053");
@@ -87,8 +86,7 @@ public class GPTlessons {
                     }
             }
         }
-        
- */
+
     }
 }
 
