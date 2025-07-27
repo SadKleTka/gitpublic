@@ -102,7 +102,7 @@ public class GPTlessons {
             System.out.println("If you want to return to the Main menu from LIST write \"back\"");
             String stop = scan.nextLine();
             if (stop.equals("back"))
-              return;
+                return;
     }
 }
 
