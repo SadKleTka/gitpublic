@@ -2,6 +2,29 @@ import java.util.*;
 
 public class GPTlessons {
     public static void main(String[] args) {
+         /*
+        Scanner scan = new Scanner(System.in);
+        Random ran = new Random();
+        System.out.println("Guess a number from 1 to 100");
+        int number = ran.nextInt(100);
+        int guess;
+        int attempts = 0;
+        do {
+            System.out.print("Write your guess: ");
+            guess = scan.nextInt();
+            attempts++;
+        if (guess < number) {
+            System.out.println("Wrong, your guess is lower than the number");
+        } else if (guess > number) {
+            System.out.println("Wrong, your guess is higher than the number");
+        } else {
+            System.out.println("You are right the number was: " + number);
+            System.out.println("You guessed in " + attempts + " attempts");
+        }
+    } while (guess != number); */
+
+
+        
         Scanner scan = new Scanner(System.in);
         HashMap<String, String> phoneBook = new HashMap<>();
         phoneBook.put("Uzan", "+996504513053");
