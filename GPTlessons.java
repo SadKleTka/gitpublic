@@ -68,6 +68,7 @@ public class GPTlessons {
     public static void AddContact(HashMap<String, String> phoneBook, Scanner scan) {
         while (true) {
             System.out.println("\n➕ Add New Contact");
+            System.out.println("\nIf you want to back to the Main menu write \"back or stop or exit\"");
             System.out.print("\nWrite name: ");
             String name = scan.nextLine();
             if (name.equals("back") || name.equals("stop") || name.equals("exit"))
