@@ -70,12 +70,16 @@ public class GPTlessons {
             System.out.println("\n➕ Add New Contact");
             System.out.print("\nWrite name: ");
             String name = scan.nextLine();
+            if (name.equals("back") || name.equals("stop") || name.equals("exit"))
+                return;
             if (phoneBook.containsKey(name)) {
                 System.out.println("You already have a contact with that name. Press \"ENTER\" to continue.");
                 scan.nextLine();
             } else {
                 System.out.print("\nWrite number: ");
                 String number = scan.nextLine();
+                if (number.equals("stop") || number.equals("exit") || number.equals("back"))
+                    return;
                 if (!number.matches("\\+996\\d{9}")) {
                     System.out.println("That is invalid type of number. Press \"ENTER\" to continue.");
                     scan.nextLine();
