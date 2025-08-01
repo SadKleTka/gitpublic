@@ -48,30 +48,36 @@ public class GPTlessons {
 
     public static void FindContact(HashMap<String, String> phoneBook, Scanner scan) {
         while (true) {
-            System.out.println("\n🔍 Contact Search");
+            System.out.println("🔍 Contact Search");
+            System.out.println("Enter \"back\" to back in the main menu or \"exit\" to leave from the app");
             System.out.print("\nWrite who's number you wanna find: ");
             String find = scan.nextLine();
-            if (phoneBook.containsKey(find)) {
-                System.out.println("=================================================================================================");
-                System.out.println("Founded a contact: " + "\nName: " + find + "\nNumber: " + phoneBook.get(find));
-                System.out.println("=================================================================================================");
-            } else {
-                System.out.println("There are nobody with that name in your contacts.");
+            if (find.equals("back"))
+                return;
+            if (find.equals("exit"))
+                System.exit(0);
+                if (phoneBook.containsKey(find)) {
+                    System.out.println("=================================================================================================");
+                    System.out.println("Founded a contact: " + "\nName: " + find + "\nNumber: " + phoneBook.get(find));
+                    System.out.println("=================================================================================================");
+                } else {
+                    System.out.println("There are nobody with that name in your contacts.");
+                }
+                System.out.println("If you want to return to the Main menu from searching contacts write \"back\". If you want to continue press \"ENTER\"");
+                String stop = scan.nextLine();
+                if (stop.equals("back"))
+                    break;
             }
-            System.out.println("If you want to return to the Main menu from searching contacts write \"back\". If you want to continue press \"ENTER\"");
-            String stop = scan.nextLine();
-            if (stop.equals("back"))
-                break;
-        }
+
     }
 
     public static void AddContact(HashMap<String, String> phoneBook, Scanner scan) {
         while (true) {
             System.out.println("\n➕ Add New Contact");
-            System.out.println("\nIf you want to back to the Main menu write \"back or stop or exit\"");
+            System.out.println("\nIf you want to back to the Main menu write \"back\"");
             System.out.print("\nWrite name: ");
             String name = scan.nextLine();
-            if (name.equals("back") || name.equals("stop") || name.equals("exit"))
+            if (name.equals("back"))
                 return;
             if (phoneBook.containsKey(name)) {
                 System.out.println("You already have a contact with that name. Press \"ENTER\" to continue.");
@@ -107,6 +113,7 @@ public class GPTlessons {
         System.out.println("=================================================================================================");
         System.out.println("Press \"ENTER\" to return to the Main menu");
         scan.nextLine();
+
     }
 
 }
