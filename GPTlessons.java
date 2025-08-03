@@ -1,5 +1,4 @@
 import java.util.*;
-
 public class GPTlessons {
     public static void main(String[] args) {
 
@@ -16,34 +15,43 @@ public class GPTlessons {
             System.out.println("If you want to add a new contact write: \"add\" ➕");
             System.out.println("If you want to find a contact write: \"find\" 🔍");
             System.out.println("If you want to see a list of contacts write: \"list\" 📋");
+            System.out.println("If you want to edit some contacts write: \"edit\" ✏\uFE0F");
             System.out.println("If you want to remove some contacts write: \"remove\" ❌");
             System.out.println("If you want to exit from a phoneBook, please write: \"exit\" \uD83D\uDED1");
             String mainmenu = scan.nextLine();
-            if (!mainmenu.equals("find") && !mainmenu.equals("add") && !mainmenu.equals("list") && !mainmenu.equals("exit") && !mainmenu.equals("remove")) {
+            Set<String> setOfCommands = Set.of("find", "add", "list", "exit", "remove", "edit");
+            if (setOfCommands.contains(mainmenu)) {
+                switch (mainmenu) {
+                    case "find":
+                        findContact(phoneBook, scan);
+                        break;
+
+                    case "add":
+                        addContact(phoneBook, scan);
+                        break;
+
+                    case "list":
+                        listOfContacts(phoneBook, scan);
+                        System.out.println(enterOneOption());
+                        scan.nextLine();
+                        break;
+
+                    case "remove":
+                        removeContacts(phoneBook, scan);
+                        break;
+
+                    case "edit":
+                        editContacts(phoneBook, scan);
+                        break;
+
+                    case "exit":
+                        System.exit(0);
+                        break;
+                }
+            }
+            else {
                 System.out.println("There are no commands like that. Please press \"ENTER\" to return to Main menu");
                 scan.nextLine();
-            }
-            switch (mainmenu) {
-                case "find":
-                    findContact(phoneBook, scan);
-                    break;
-
-                case "add":
-                    addContact(phoneBook, scan);
-                    break;
-
-                case "list":
-                    listOfContacts(phoneBook, scan);
-                    System.out.println("Press \"ENTER\" to return to the Main menu");
-                    scan.nextLine();
-                    break;
-
-                case "exit":
-                    System.exit(0);
-
-                case "remove":
-                    removeContacts(phoneBook, scan);
-                    break;
             }
         }
 
@@ -67,7 +75,7 @@ public class GPTlessons {
                 } else {
                     System.out.println("There are nobody with that name in your contacts.");
                 }
-                System.out.println("If you want to return to the Main menu from searching contacts write \"back\". If you want to continue press \"ENTER\"");
+            System.out.println(enterTwoOptions());
                 String stop = scan.nextLine();
                 if (stop.equalsIgnoreCase("back"))
                     break;
@@ -102,7 +110,7 @@ public class GPTlessons {
                     System.out.println("=================================================================================================");
                     System.out.println("You have successfully added a new contact:\nName: " + name + "\nNumber: " + number);
                     System.out.println("=================================================================================================");
-                    System.out.println("If you want to return to the Main menu from adding a contact write \"back\". If you want to continue adding a contacts press \"ENTER\"");
+                    System.out.println(enterTwoOptions());
                     String stop = scan.nextLine();
                     if (stop.equalsIgnoreCase("back"))
                         break;
@@ -135,29 +143,90 @@ public class GPTlessons {
                 String decision = scan.nextLine();
                 if (decision.equalsIgnoreCase("yes")) {
                     listOfContacts(phoneBook, scan);
-                    System.out.println("Press \"ENTER\" to return to continue removing contacts, or write \"back\" to return in the Main menu");
+                    System.out.println(enterTwoOptions());
                     String back = scan.nextLine();
                     if(back.equalsIgnoreCase("back"))
                     break;
                 } else if (decision.equalsIgnoreCase("no")) {
-                    System.out.println("Press \"ENTER\" to return in the main menu");
+                    System.out.println(enterOneOption());
                     scan.nextLine();
                     break;
                 } else {
                     System.out.println("There are no commands like that.");
-                    System.out.println("Press \"ENTER\" to continue removing contacts, or enter \"back\" to return in the Main menu");
+                    System.out.println(enterTwoOptions());
                     String enter = scan.nextLine();
                     if(enter.equalsIgnoreCase("back"))
                         break;
                 }
             } else {
                 System.out.println("❌ Contact not found.");
-                System.out.println("Press \"ENTER\" to continue removing contacts, or enter \"back\" to return in the Main menu");
+                System.out.println(enterTwoOptions());
                 String returnAfterError = scan.nextLine();
-                if(returnAfterError.equalsIgnoreCase("back"))
+                if (returnAfterError.equalsIgnoreCase("back"))
                     break;
             }
         }
+    }
+
+    public static void editContacts(TreeMap<String, String> phoneBook, Scanner scan) {
+        while(true) {
+            System.out.println("\n✏\uFE0FRedacting contacts");
+            System.out.print("\n\nWrite a contact that you want to redact: ");
+            String name = scan.nextLine();
+            if (phoneBook.containsKey(name)) {
+                System.out.print("\nWrite new name for contact: ");
+                String newname = scan.nextLine();
+                if (phoneBook.containsKey(newname)) {
+                    System.out.println("This name has been already added to contacts.");
+                    System.out.println(enterTwoOptions());
+                    String action = scan.nextLine();
+                    if(action.equalsIgnoreCase("back"))
+                        break;
+                    if(action.isEmpty())
+                        continue;
+                }
+                System.out.print("\nWrite new number for contact: ");
+                String newnumber = scan.nextLine();
+                if(newnumber.matches("\\+996\\d+")) {
+                    phoneBook.remove(name);
+                    phoneBook.put(newname, newnumber);
+                    System.out.println("Do you want to see new list of contacts? Print \"yes\" or \"no\"");
+                    String decision = scan.nextLine();
+                    if (decision.equalsIgnoreCase("yes")) {
+                        listOfContacts(phoneBook, scan);
+                        System.out.println(enterTwoOptions());
+                    } else if (decision.equalsIgnoreCase("no")) {
+                        System.out.println(enterOneOption());
+                        break;
+                    } else {
+                        System.out.println("Invalid code press \"ENTER\" to continue");
+                    }
+                    String back = scan.nextLine();
+                    if (back.equalsIgnoreCase("back"))
+                        break;
+                } else {
+                    String function1 = enterTwoOptions();
+                    System.out.println("Invalid type of number." + " " + function1);
+                    String action = scan.nextLine();
+                    if(action.equalsIgnoreCase("back"))
+                        break;
+                }
+            } else {
+                String function2 = enterTwoOptions();
+                System.out.println("There are no contacts with that name." + " " + function2);
+                String back = scan.nextLine();
+                if (back.equalsIgnoreCase("back"))
+                    break;
+            }
+        }
+
+        }
+
+    public static String enterTwoOptions() {
+        return "Press \"ENTER\" to continue, or enter \"back\" to return in the Main menu";
+    }
+    public static String enterOneOption() {
+        return "Press \"ENTER\" to return in the main menu";
     }
 
 }
