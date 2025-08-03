@@ -62,8 +62,12 @@ public class GPTlessons {
         while (true) {
             System.out.println("🔍 Contact Search");
             System.out.println("\nEnter \"back\" to back in the main menu or \"exit\" to leave from the app");
-            System.out.println("You want to find a contact by name, or number? Enter \"name\", or \"number\"");
+            System.out.println("\nYou want to find a contact by name, or number? Enter \"name\", or \"number\"");
             String byWhat = scan.nextLine();
+            if(byWhat.equalsIgnoreCase("back"))
+                break;
+            if(byWhat.equalsIgnoreCase("exit"))
+                System.exit(0);
             if (byWhat.equalsIgnoreCase("name")) {
                 System.out.print("\nWrite who's number you wanna find: ");
                 String find = scan.nextLine();
@@ -83,23 +87,34 @@ public class GPTlessons {
                 if (stop.equalsIgnoreCase("back"))
                     break;
             }
-            else if(byWhat.equalsIgnoreCase("number")) {
-                System.out.println("Write a number of a contact: ");
-                String findByNumber = scan.nextLine();
-                if (findByNumber.equalsIgnoreCase("back"))
-                    return;
-                if (findByNumber.equalsIgnoreCase("exit"))
-                    System.exit(0);
-                if (phoneBook.containsValue(findByNumber)) {
-                    System.out.println("=================================================================================================");
-                    System.out.println("Founded a contact: " + "\nName: " + phoneBook.keySet() + "\nNumber: " + findByNumber);
-                    System.out.println("=================================================================================================");
+            else if (byWhat.equalsIgnoreCase("number")) {
+                System.out.println("\n\uD83D\uDED1❗You have to write a number with code of country \"+996\" and 9 digits after it\uD83D\uDED1❗");
+                    System.out.print("\nWrite a number of a contact: ");
+                    String findByNumber = scan.nextLine();
+                    if (findByNumber.matches("\\+996\\d{9}")) {
+                        if (findByNumber.equalsIgnoreCase("back"))
+                            break;
+                        if (findByNumber.equalsIgnoreCase("exit"))
+                            System.exit(0);
+                        if (phoneBook.containsValue(findByNumber)) {
+                            for (String name : phoneBook.keySet()) {
+                                if (findByNumber.equals(phoneBook.get(name))) {
+                                    System.out.println("=================================================================================================");
+                                    System.out.println("Founded a contact: " + "\nName: " + name + "\nNumber: " + findByNumber);
+                                    System.out.println("=================================================================================================");
+                                }
+                            }
+                        } else {
+                            System.out.println("‼\uFE0FThere are nobody with that number in your contacts‼\uFE0F");
+                            System.out.println(enterTwoOptions());
+                            String back = scan.nextLine();
+                            if (back.equalsIgnoreCase("back"))
+                                break;
+                        }
+                    }
             }
-                else {
-                    System.out.println("There are nobody with that name in your contacts.");
-                }
-        }
 
+        }
     }
 
     public static void addContact(TreeMap<String, String> phoneBook, Scanner scan) {
@@ -116,9 +131,16 @@ public class GPTlessons {
                 return;
             if (phoneBook.containsKey(name)) {
                 System.out.println("You already have a contact with that name\uD83D\uDEA8");
+                System.out.println("Press \"ENTER\" to continue");
+                scan.nextLine();
             } else {
                 System.out.print("\nWrite number: ");
                 String number = scan.nextLine();
+                if (phoneBook.containsValue(number)) {
+                    System.out.println("You already have a contact with that number‼\uFE0F");
+                    System.out.println("Press \"ENTER\" to continue");
+                    scan.nextLine();
+                } else {
                 if (number.equalsIgnoreCase("back"))
                     return;
                 if (!number.matches("\\+996\\d{9}")) {
@@ -134,6 +156,7 @@ public class GPTlessons {
                     if (stop.equalsIgnoreCase("back"))
                         break;
                 }
+            }
             }
         }
     }
@@ -206,7 +229,7 @@ public class GPTlessons {
                 }
                 System.out.print("\nWrite new number for contact: ");
                 String newnumber = scan.nextLine();
-                if (newnumber.matches("\\+996\\d+")) {
+                if (newnumber.matches("\\+996\\d{9}")) {
                     phoneBook.remove(name);
                     phoneBook.put(newname, newnumber);
                     System.out.println("Do you want to see new list of contacts? Print \"yes\" or \"no\"");
