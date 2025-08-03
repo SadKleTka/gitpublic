@@ -29,15 +29,15 @@ public class GPTlessons {
             }
             switch (mainmenu) {
                 case "find":
-                    FindContact(phoneBook, scan);
+                    findContact(phoneBook, scan);
                     break;
 
                 case "add":
-                    AddContact(phoneBook, scan);
+                    addContact(phoneBook, scan);
                     break;
 
                 case "list":
-                    ListOfContacts(phoneBook, scan);
+                    listOfContacts(phoneBook, scan);
                     System.out.println("Press \"ENTER\" to return to the Main menu");
                     scan.nextLine();
                     break;
@@ -46,7 +46,7 @@ public class GPTlessons {
                     System.exit(0);
 
                 case "remove":
-                    DeleteContacts(phoneBook, scan);
+                    removeContacts(phoneBook, scan);
                     break;
             }
         }
@@ -54,7 +54,7 @@ public class GPTlessons {
 
     }
 
-    public static void FindContact(TreeMap<String, String> phoneBook, Scanner scan) {
+    public static void findContact(TreeMap<String, String> phoneBook, Scanner scan) {
         while (true) {
             System.out.println("🔍 Contact Search");
             System.out.println("Enter \"back\" to back in the main menu or \"exit\" to leave from the app");
@@ -79,7 +79,7 @@ public class GPTlessons {
 
     }
 
-    public static void AddContact(TreeMap<String, String> phoneBook, Scanner scan) {
+    public static void addContact(TreeMap<String, String> phoneBook, Scanner scan) {
         while (true) {
             System.out.println("\n➕ Add New Contact");
             System.out.println("\nIf you want to back to the Main menu write \"back\"");
@@ -115,7 +115,7 @@ public class GPTlessons {
         }
     }
 
-    public static void ListOfContacts(TreeMap<String, String> phoneBook, Scanner scan) {
+    public static void listOfContacts(TreeMap<String, String> phoneBook, Scanner scan) {
         System.out.println("\n📋 Contact List:");
         System.out.println("\n=================================================================================================");
         for (String name : phoneBook.keySet()) {
@@ -124,7 +124,7 @@ public class GPTlessons {
         System.out.println("=================================================================================================");
 
     }
-    public static void DeleteContacts(TreeMap<String, String> phoneBook, Scanner scan) {
+    public static void removeContacts(TreeMap<String, String> phoneBook, Scanner scan) {
         while(true) {
             System.out.println("\nRemove contact ❌");
             System.out.println("\nWrite \"back\" if you want to return in the Main menu");
@@ -138,7 +138,7 @@ public class GPTlessons {
                 System.out.println("Do you want to see new list of contacts? Print \"yes\" or \"no\"");
                 String yes = scan.nextLine();
                 if (yes.equals("yes")) {
-                    ListOfContacts(phoneBook, scan);
+                    listOfContacts(phoneBook, scan);
                     System.out.println("Press \"ENTER\" to return to continue removing contacts, or write \"back\" to return in the Main menu");
                     String back = scan.nextLine();
                     if(back.equals("back"))
