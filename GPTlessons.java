@@ -219,21 +219,36 @@ public class GPTlessons {
             if (name.equalsIgnoreCase("back")) {
                 break;
             }
-            else {
+            else if (!name.isEmpty() && !name.equalsIgnoreCase("back")) {
                 if (phoneBook.containsKey(name)) {
                     System.out.print("\nWrite new name for contact: ");
                     String newname = scan.nextLine();
-                    if (newname.equalsIgnoreCase("back"))
-                        break;
+                    if (newname.isEmpty()) {
+                        System.out.println("This pole cannot be empty.");
+                        System.out.println(enterTwoOptions());
+                        String back = scan.nextLine();
+                        if (back.equalsIgnoreCase("back"))
+                            break;
+                        else if (back.isEmpty())
+                            continue;
+                        else if (!back.isEmpty() && !back.equalsIgnoreCase("back")) {
+                            System.out.println("Error");
+                            break;
+                        }
+                    }
                     else {
-                        if (phoneBook.containsKey(newname)) {
-                            System.out.println("This name has been already added to contacts.");
-                            System.out.println(enterTwoOptions());
-                            String action = scan.nextLine();
-                            if (action.equalsIgnoreCase("back"))
-                                break;
-                            if (action.isEmpty())
-                                continue;
+                        if (newname.equalsIgnoreCase("back"))
+                            break;
+                        else {
+                            if (phoneBook.containsKey(newname) && !newname.equalsIgnoreCase(name)) {
+                                System.out.println("This name has been already added to contacts.");
+                                System.out.println(enterTwoOptions());
+                                String action = scan.nextLine();
+                                if (action.equalsIgnoreCase("back"))
+                                    break;
+                                if (action.isEmpty())
+                                    continue;
+                            }
                         }
                     }
                     System.out.print("\nWrite new number for contact: ");
@@ -278,13 +293,23 @@ public class GPTlessons {
                                 break;
                         }
                     }
-                } else {
+                } else if(name.isEmpty())
+                    System.out.println("This pole cannot be empty.");
+                System.out.println(enterTwoOptions());
+                String back = scan.nextLine();
+                if (back.equalsIgnoreCase("back"))
+                    break;
+                else {
                     String function2 = enterTwoOptions();
                     System.out.println("There are no contacts with that name." + " " + function2);
-                    String back = scan.nextLine();
-                    if (back.equalsIgnoreCase("back"))
+                    String back1 = scan.nextLine();
+                    if (back1.equalsIgnoreCase("back"))
                         break;
                 }
+            }
+            else  {
+                System.out.println("Error");
+                break;
             }
         }
 
