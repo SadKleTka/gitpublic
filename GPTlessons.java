@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 public class GPTlessons {
     public static void main(String[] args) {
@@ -213,52 +214,78 @@ public class GPTlessons {
     public static void editContacts(TreeMap<String, String> phoneBook, Scanner scan) {
         while (true) {
             System.out.println("\n✏\uFE0FRedacting contacts");
+            System.out.println("\nWrite \"back\" if you want to return in the Main menu");
             System.out.print("\n\nWrite a contact that you want to redact: ");
             String name = scan.nextLine();
-            if (phoneBook.containsKey(name)) {
-                System.out.print("\nWrite new name for contact: ");
-                String newname = scan.nextLine();
-                if (phoneBook.containsKey(newname)) {
-                    System.out.println("This name has been already added to contacts.");
-                    System.out.println(enterTwoOptions());
-                    String action = scan.nextLine();
-                    if (action.equalsIgnoreCase("back"))
+            if (name.equalsIgnoreCase("back")) {
+                break;
+            }
+            else {
+                if (phoneBook.containsKey(name)) {
+                    System.out.print("\nWrite new name for contact: ");
+                    String newname = scan.nextLine();
+                    if (newname.equalsIgnoreCase("back"))
                         break;
-                    if (action.isEmpty())
-                        continue;
-                }
-                System.out.print("\nWrite new number for contact: ");
-                String newnumber = scan.nextLine();
-                if (newnumber.matches("\\+996\\d{9}")) {
-                    phoneBook.remove(name);
-                    phoneBook.put(newname, newnumber);
-                    System.out.println("Do you want to see new list of contacts? Print \"yes\" or \"no\"");
-                    String decision = scan.nextLine();
-                    if (decision.equalsIgnoreCase("yes")) {
-                        listOfContacts(phoneBook, scan);
-                        System.out.println(enterTwoOptions());
-                    } else if (decision.equalsIgnoreCase("no")) {
-                        System.out.println(enterOneOption());
-                        break;
-                    } else {
-                        System.out.println("Invalid code press \"ENTER\" to continue");
+                    else {
+                        if (phoneBook.containsKey(newname)) {
+                            System.out.println("This name has been already added to contacts.");
+                            System.out.println(enterTwoOptions());
+                            String action = scan.nextLine();
+                            if (action.equalsIgnoreCase("back"))
+                                break;
+                            if (action.isEmpty())
+                                continue;
+                        }
                     }
+                    System.out.print("\nWrite new number for contact: ");
+                    String newnumber = scan.nextLine();
+                    if (newnumber.equalsIgnoreCase("back"))
+                        break;
+                    else {
+                        if (!phoneBook.containsValue(newnumber)) {
+                            if (newnumber.matches("\\+996\\d{9}")) {
+                                phoneBook.remove(name);
+                                phoneBook.put(newname, newnumber);
+                                System.out.println("You have successfully edited a contact: ");
+                                System.out.println("\n=================================================================================================");
+                                System.out.println("\nName: " + newname + "\t Number: " + phoneBook.get(newname));
+                                System.out.println("\n=================================================================================================");
+                                System.out.println("Do you want to see new list of contacts? Print \"yes\" or \"no\"");
+                                String decision = scan.nextLine();
+                                if (decision.equalsIgnoreCase("yes")) {
+                                    listOfContacts(phoneBook, scan);
+                                    System.out.println(enterTwoOptions());
+                                } else if (decision.equalsIgnoreCase("no")) {
+                                    System.out.println(enterOneOption());
+                                    break;
+                                } else {
+                                    System.out.println("Invalid code press \"ENTER\" to continue");
+                                }
+                                String back = scan.nextLine();
+                                if (back.equalsIgnoreCase("back"))
+                                    break;
+                            } else {
+                                String function1 = enterTwoOptions();
+                                System.out.println("Invalid type of number." + " " + function1);
+                                String action = scan.nextLine();
+                                if (action.equalsIgnoreCase("back"))
+                                    break;
+                            }
+                        } else {
+                            System.out.println("This number had been already used in some contact‼\uFE0F");
+                            System.out.println(enterTwoOptions());
+                            String back = scan.nextLine();
+                            if (back.equalsIgnoreCase("back"))
+                                break;
+                        }
+                    }
+                } else {
+                    String function2 = enterTwoOptions();
+                    System.out.println("There are no contacts with that name." + " " + function2);
                     String back = scan.nextLine();
                     if (back.equalsIgnoreCase("back"))
                         break;
-                } else {
-                    String function1 = enterTwoOptions();
-                    System.out.println("Invalid type of number." + " " + function1);
-                    String action = scan.nextLine();
-                    if (action.equalsIgnoreCase("back"))
-                        break;
                 }
-            } else {
-                String function2 = enterTwoOptions();
-                System.out.println("There are no contacts with that name." + " " + function2);
-                String back = scan.nextLine();
-                if (back.equalsIgnoreCase("back"))
-                    break;
             }
         }
 
